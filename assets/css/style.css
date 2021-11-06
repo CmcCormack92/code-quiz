@@ -1,0 +1,47 @@
+header {
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#highscore, #timer {
+    padding: 20px 30px 20px 30px;
+    font-size: large;
+}
+
+#highscore a {
+    text-decoration: none;
+}
+
+.quiz-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-content h1 {
+    color: blue;
+    font-size: 50px;
+    padding: 40px;
+}
+
+.quiz-content p {
+    text-align: center;
+    font-size: x-large;
+}
+
+.btn button{
+    background-color: blue;
+    color: white;
+    font-size: 25px;
+    width: 200px;
+    height: 75px;
+    border-radius: 50px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, .75) ;
+}
+
+
