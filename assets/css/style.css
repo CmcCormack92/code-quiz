@@ -34,7 +34,7 @@ header {
     font-size: x-large;
 }
 
-.btn button{
+#btn {
     background-color: blue;
     color: white;
     font-size: 25px;
