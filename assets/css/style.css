@@ -11,6 +11,10 @@ header {
     font-size: large;
 }
 
+#timer {
+    display: flex;
+}
+
 #highscore a {
     text-decoration: none;
 }
@@ -42,6 +46,10 @@ header {
     height: 75px;
     border-radius: 50px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, .75) ;
+}
+
+#btn:active {
+    opacity: .75;
 }
 
 
