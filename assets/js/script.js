@@ -1,27 +1,27 @@
 var buttonEl = document.querySelector("#btn");
 var ansBtn = document.querySelector(".answer-button");
-var nxtBtn = document.querySelector(".btn")
+var message = document.querySelector("#message");
+var save = document.querySelector("#save-score");
 
-
+var score = 100;
 var timeLeft = 75;
 var questNum = 0;
 
 var questions = ["Which is not a primitive data type?", "Which keyword is most commonly used to iterate through an array?", "Function parameters are enclosed in _____.", "What is the proper way to connect a seperate JavaScript file to your HTML?", "Which is the correct way to add a comment in JavaScript?"];
 
 var answers = {
-ans1: ["1. Number", "1. for", "1. double quotes", "1. <script src= ''>", "1. <!--This is a comment-->"],
-ans2: ["2. String", "2. var", "2. curly brackets", "2. <script href=''>", "2. //This is a comment"],
-ans3: ["3. Object", "3. if", "3. square brackets", "3. <srcipt name=''>", "3. 'This is a commment'"],
-ans4: ["4. Boolean", "4. else", "4. parenthesis", "4. None of the above", "4. {This is a comment}"]
+    ans1: ["1. Number", "1. for", "1. double quotes", "1. <script src= ''>", "1. <!--This is a comment-->"],
+    ans2: ["2. String", "2. var", "2. curly brackets", "2. <script href=''>", "2. //This is a comment"],
+    ans3: ["3. Object", "3. if", "3. square brackets", "3. <srcipt name=''>", "3. 'This is a commment'"],
+    ans4: ["4. Boolean", "4. else", "4. parenthesis", "4. None of the above", "4. {This is a comment}"]
 };
 
 //Starts the quiz when start button pressed
 var startQuiz = function () {
     buttonEl.remove("#btn");
     createBtn();
-    var timeLabel = document.querySelector("#time-label").textContent = "Time:";
-    var rmvMessage = document.querySelector("#welcome-message");
-    rmvMessage.remove("welcome-message");
+    var timeLabel = document.querySelector("#time-label").textContent = "Time: ";
+    message.textContent = "";
     setInterval(timeHandler, 1000)
 };
 
@@ -33,11 +33,13 @@ var timeHandler = function () {
     }
     if (timeLeft < 10) {
         document.getElementById("time-value").style.color = "red";
+    } if (timeLeft === 1) {
+        endQuiz();
     }
 };
 
 //creates answer buttons
-var createBtn = function() {
+var createBtn = function () {
     var btn1 = document.createElement("button");
     btn1.className = "btn";
     btn1.id = "btn1";
@@ -60,19 +62,40 @@ var createBtn = function() {
 };
 
 //changes to next question
-var nextQuestion = function() {
-    if ( questNum < questions.length) {
+var nextQuestion = function () {
+    if (questNum <= questions.length - 1) {
         document.getElementById("quiz-question").textContent = questions[questNum];
         document.getElementById("btn1").textContent = answers.ans1[questNum];
         document.getElementById("btn2").textContent = answers.ans2[questNum];
         document.getElementById("btn3").textContent = answers.ans3[questNum];
         document.getElementById("btn4").textContent = answers.ans4[questNum];
-    
-        questNum++;    
+
+        questNum++;
+    } else {
+        endQuiz();
     }
 };
+
+//Quiz complete
+var endQuiz = function () {
+    if (timeLeft === 1) {
+        document.getElementById("quiz-question").textContent = "You ran out of time!";
+    } else {
+        document.getElementById("quiz-question").textContent = "Quiz Complete";
+    }
+    
+    ansBtn.remove(".btn");
+
+    message.textContent = "Your score was " + score;
+
+    var svBtn = document.createElement("button");
+    svBtn.className = "btn";
+    svBtn.id = "svBtn";
+    save.appendChild(svBtn);
+    document.getElementById("svBtn").textContent = "Save Score";
+}
 
 
 
 buttonEl.addEventListener("click", startQuiz);
-nxtBtn.addEventListener("click", nextQuestion);
+ansBtn.addEventListener("click", nextQuestion);
