@@ -61,6 +61,21 @@ header {
     opacity: .75;
 }
 
+#save-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#name-input input {
+    width: 500px;
+    height: 50px;
+    border: 1px solid blue;
+    border-radius: 50px;
+    text-align: center;
+    font-size: x-large;
+}
+
 @media screen and (max-width: 575px){
     .quiz-content h1 {
         font-size: 30px;

@@ -2,10 +2,15 @@ var buttonEl = document.querySelector("#btn");
 var ansBtn = document.querySelector(".answer-button");
 var message = document.querySelector("#message");
 var save = document.querySelector("#save-score");
+var rstBtn = document.querySelector("#reset");
+var nameInput = document.querySelector("#name-input");
+
 
 var score = 100;
 var timeLeft = 75;
 var questNum = 0;
+var initials = "";
+var highScoreArr = [];
 
 var questions = ["Which is not a primitive data type?", "Which keyword is most commonly used to iterate through an array?", "Function parameters are enclosed in _____.", "What is the proper way to connect a seperate JavaScript file to your HTML?", "Which is the correct way to add a comment in JavaScript?"];
 
@@ -18,11 +23,12 @@ var answers = {
 
 //Starts the quiz when start button pressed
 var startQuiz = function () {
+    setInterval(timeHandler, 1000);
+
     buttonEl.remove("#btn");
     createBtn();
     var timeLabel = document.querySelector("#time-label").textContent = "Time: ";
     message.textContent = "";
-    setInterval(timeHandler, 1000)
 };
 
 //Timer function
@@ -82,20 +88,53 @@ var endQuiz = function () {
         document.getElementById("quiz-question").textContent = "You ran out of time!";
     } else {
         document.getElementById("quiz-question").textContent = "Quiz Complete";
+        timeLeft = 0;
     }
-    
+
     ansBtn.remove(".btn");
 
     message.textContent = "Your score was " + score;
+
+    var input = document.createElement("input");
+    nameInput.appendChild(input);
+    input.id = "name";
+    document.getElementById("name").placeholder = "Type Your Initials Here"
 
     var svBtn = document.createElement("button");
     svBtn.className = "btn";
     svBtn.id = "svBtn";
     save.appendChild(svBtn);
     document.getElementById("svBtn").textContent = "Save Score";
+
+    var reset = document.createElement("button");
+    reset.className = "btn";
+    reset.id = "reset-button";
+    rstBtn.appendChild(reset);
+    document.getElementById("reset-button").textContent = "Try Again";
 }
+
+var saveScore = function () {
+    var svInitials = document.getElementById("name").value;
+    if (svInitials === "" || svInitials === null || svInitials.length < 3) {
+        alert("Please enter a valid input to save!");
+    } else {
+        highScoreArr.push(svInitials);
+        highScoreArr.push(score);
+        localStorage.setItem("highScoreArr", JSON.stringify(highScoreArr));
+        tryAgain();
+        alert("Your high score has been saved");
+    }
+};
+
+var tryAgain = function () {
+    document.location.reload();
+    timeLeft = 75;
+    score = 100;
+};
 
 
 
 buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
+save.addEventListener("click", saveScore);
+rstBtn.addEventListener("click", tryAgain);
