@@ -31,6 +31,7 @@ header {
     color: blue;
     font-size: 50px;
     padding: 40px;
+    text-align: center;
 }
 
 .quiz-content p {
@@ -52,10 +53,28 @@ header {
     height: 75px;
     border-radius: 50px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, .75);
+    padding: 5px;
+    margin: 5px;
 }
 
 #btn:active {
     opacity: .75;
 }
+
+@media screen and (max-width: 575px){
+    .quiz-content h1 {
+        font-size: 30px;
+    }
+
+    .quiz-content p {
+        font-size: medium;
+    }
+
+    .btn {
+        width: 300px;
+        font-size: 18px;
+    }
+}
+
 
 
