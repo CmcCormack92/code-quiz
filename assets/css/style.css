@@ -29,7 +29,7 @@ header {
 
 .quiz-content h1 {
     color: blue;
-    font-size: 50px;
+    font-size: 40px;
     padding: 40px;
     text-align: center;
 }
@@ -78,7 +78,7 @@ header {
 
 @media screen and (max-width: 575px){
     .quiz-content h1 {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .quiz-content p {
@@ -87,6 +87,7 @@ header {
 
     .btn, #name-input input {
         width: 300px;
+        height: 50px;
         font-size: 18px;
     }
 

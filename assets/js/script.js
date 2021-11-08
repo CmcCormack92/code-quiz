@@ -4,9 +4,10 @@ var message = document.querySelector("#message");
 var save = document.querySelector("#save-score");
 var rstBtn = document.querySelector("#reset");
 var nameInput = document.querySelector("#name-input");
+var showHighscore = document.querySelector("#highscore");
 
 var score = 100;
-var timeLeft = 75;
+var timeLeft = 60;
 var questNum = 0;
 var ansNum = 0;
 var initials = "";
@@ -88,7 +89,7 @@ var scoring = function () {
     if (ansNum === 2 && event.target.textContent !== "3. Object") {
         score = score - 20;
         timeLeft = timeLeft - 10;
-    } 
+    }
     else if (ansNum === 3 && event.target.textContent !== "1. for") {
         score = score - 20;
         timeLeft = timeLeft - 10;
@@ -143,6 +144,7 @@ var saveScore = function () {
     if (svInitials === "" || svInitials === null || svInitials.length < 3) {
         alert("Please enter a valid input to save!");
     } else {
+        
         highScoreArr.push(svInitials);
         highScoreArr.push(score);
         localStorage.setItem("highScoreArr", JSON.stringify(highScoreArr));
@@ -151,9 +153,21 @@ var saveScore = function () {
     }
 };
 
+var getHighscore = function () {
+    var savedScores = localStorage.getItem("highScoreArr");
+    savedScores = JSON.parse(savedScores);
+
+
+    if (!savedScores) {
+        return false;
+    }
+
+    alert(savedScores);
+};
+
 var tryAgain = function () {
     document.location.reload();
-    timeLeft = 75;
+    timeLeft = 60;
     score = 100;
     questNum = 0;
 };
@@ -164,3 +178,4 @@ buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
 save.addEventListener("click", saveScore);
 rstBtn.addEventListener("click", tryAgain);
+showHighscore.addEventListener("click", getHighscore);
