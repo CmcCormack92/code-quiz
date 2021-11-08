@@ -85,10 +85,12 @@ header {
         font-size: medium;
     }
 
-    .btn {
+    .btn, #name-input input {
         width: 300px;
         font-size: 18px;
     }
+
+   
 }
 
 
