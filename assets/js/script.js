@@ -5,8 +5,9 @@ var save = document.querySelector("#save-score");
 var rstBtn = document.querySelector("#reset");
 var nameInput = document.querySelector("#name-input");
 var showHighscore = document.querySelector("#highscore");
+var correctWrong = document.querySelector("#correct-wrong");
 
-var score = 100;
+var score = 0;
 var timeLeft = 60;
 var questNum = 0;
 var ansNum = 0;
@@ -24,6 +25,7 @@ var answers = {
 
 //Starts the quiz when start button pressed
 var startQuiz = function () {
+    showHighscore.remove(".highscore");
     setInterval(timeHandler, 1000);
     buttonEl.remove("#btn");
     createBtn();
@@ -88,31 +90,44 @@ var nextQuestion = function () {
 //penalizing for wrong answers
 var scoring = function () {
     if (ansNum === 1 && event.target.textContent !== "3. Object") {
-        score = score - 20;
         timeLeft = timeLeft - 10;
-        console.log(ansNum)
+        wrong();
     }
-    else if (ansNum === 2 && event.target.textContent !== "1. for") {
-        score = score - 20;
+    if (ansNum === 1 && event.target.textContent === "3. Object"){
+        score = score + 20;
+        correct();
+    }
+    if (ansNum === 2 && event.target.textContent !== "1. for") {
         timeLeft = timeLeft - 10;
-        console.log(ansNum)
+        wrong();
     }
-    else if (ansNum === 3 && event.target.textContent !== "4. parenthesis") {
-        score = score - 20;
+    if (ansNum === 2 && event.target.textContent === "1. for") {
+        score = score + 20;
+        correct();
+    }
+    if (ansNum === 3 && event.target.textContent !== "4. parenthesis") {
         timeLeft = timeLeft - 10;
-        console.log(ansNum)
+        wrong();
     }
-    else if (ansNum === 4 && event.target.textContent !== "1. <script src= ' '>") {
-        score = score - 20;
+    if (ansNum === 3 && event.target.textContent === "4. parenthesis") {
+        score = score + 20;
+        correct();
+    }
+    if (ansNum === 4 && event.target.textContent !== "1. <script src= ' '>") {
         timeLeft = timeLeft - 10;
-        console.log(ansNum);
+        wrong();
     }
-    else if (event.target.textContent == "2. //This is a comment") {
-        
+    if (ansNum === 4 && event.target.textContent === "1. <script src= ' '>") {
+        score = score + 20;
+        correct();
     }
-    else if (event.target.textContent == "1. <!--This is a comment-->" || event.target.textContent == "3. 'This is a commment'" || event.target.textContent == "4. {This is a comment}") {
-        score = score - 20;
+    else if (event.target.textContent === "1. <!--This is a comment-->" || event.target.textContent ==="3. 'This is a commment'" || event.target.textContent === "4. {This is a comment}") {
         timeLeft = timeLeft - 10;
+        wrong();
+    }
+    else if (event.target.textContent === "2. //This is a comment") {
+        score = score + 20;
+        correct();
     }
 };
 
@@ -164,13 +179,11 @@ var saveScore = function () {
 var getHighscore = function () {
     var savedScores = localStorage.getItem("highScoreArr");
     savedScores = JSON.parse(savedScores);
-
+    highScoreArr = savedScores;
 
     if (!savedScores) {
         return false;
     }
-
-    alert(savedScores);
 };
 
 var tryAgain = function () {
@@ -178,12 +191,35 @@ var tryAgain = function () {
     timeLeft = 60;
     score = 100;
     questNum = 0;
+    correctWrong.textContent = "";
 };
 
+var hsPage = function() {
+    getHighscore();
+    buttonEl.remove("#btn");
+    document.getElementById("quiz-question").textContent = "High Scores";
+    message.textContent = highScoreArr;
+
+    var reset = document.createElement("button");
+    reset.className = "btn";
+    reset.id = "reset-button";
+    rstBtn.appendChild(reset);
+    document.getElementById("reset-button").textContent = "Return";
+};
+
+var correct = function() {
+    correctWrong.textContent = "Correct!";
+    correctWrong.style.color = "green";
+};
+
+var wrong = function() {
+    correctWrong.textContent = "Wrong!";
+    correctWrong.style.color = "red";
+};
 
 
 buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
 save.addEventListener("click", saveScore);
 rstBtn.addEventListener("click", tryAgain);
-showHighscore.addEventListener("click", getHighscore);
+showHighscore.addEventListener("click", hsPage);
