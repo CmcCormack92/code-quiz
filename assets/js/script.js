@@ -14,8 +14,10 @@ var ansNum = 0;
 var initials = "";
 var highScoreArr = [];
 
+//All questions array
 var questions = ["Which is not a primitive data type?", "Which keyword is most commonly used to iterate through an array?", "Function parameters are enclosed in _____.", "What is the proper way to connect a seperate JavaScript file to your HTML?", "Which is the correct way to add a comment in JavaScript?"];
 
+//All answer arrays
 var answers = {
     ans1: ["1. Number", "1. for", "1. double quotes", "1. <script src= ' '>", "1. <!--This is a comment-->"],
     ans2: ["2. String", "2. var", "2. curly brackets", "2. <script href=' '>", "2. //This is a comment"],
@@ -25,11 +27,23 @@ var answers = {
 
 //Starts the quiz when start button pressed
 var startQuiz = function () {
+
+    //Removes highscore on anything except home page
     showHighscore.remove(".highscore");
+
+    //calls the timer function every 1000ms
     setInterval(timeHandler, 1000);
+
+    //removes start button
     buttonEl.remove("#btn");
+
+    //creates answer buttons function
     createBtn();
+
+    //places the time label
     var timeLabel = document.querySelector("#time-label").textContent = "Time: ";
+
+    //removes opening paragraph
     message.textContent = "";
 };
 
@@ -162,20 +176,26 @@ var endQuiz = function () {
     document.getElementById("reset-button").textContent = "Try Again";
 }
 
+
 var saveScore = function () {
+    //checks initials input for content
     var svInitials = document.getElementById("name").value;
-    if (svInitials === "" || svInitials === null || svInitials.length < 3) {
+    if (svInitials === "" || svInitials === null || svInitials.length > 3) {
         alert("Please enter a valid input to save!");
     } else {
 
+        //saves user score
         highScoreArr.push(svInitials);
         highScoreArr.push(score);
         localStorage.setItem("highScoreArr", JSON.stringify(highScoreArr));
+        //calls function to bring user back to start page
         tryAgain();
+        //confirms highscore save
         alert("Your high score has been saved");
     }
 };
 
+//retrieves highscore 
 var getHighscore = function () {
     var savedScores = localStorage.getItem("highScoreArr");
     savedScores = JSON.parse(savedScores);
@@ -186,6 +206,7 @@ var getHighscore = function () {
     }
 };
 
+// resets to home page
 var tryAgain = function () {
     document.location.reload();
     timeLeft = 60;
@@ -194,12 +215,14 @@ var tryAgain = function () {
     correctWrong.textContent = "";
 };
 
+// generates highscore page
 var hsPage = function() {
     getHighscore();
     buttonEl.remove("#btn");
     document.getElementById("quiz-question").textContent = "High Scores";
     message.textContent = highScoreArr;
 
+    //return button to home page
     var reset = document.createElement("button");
     reset.className = "btn";
     reset.id = "reset-button";
@@ -207,17 +230,19 @@ var hsPage = function() {
     document.getElementById("reset-button").textContent = "Return";
 };
 
+//shows correct when answered correctly
 var correct = function() {
     correctWrong.textContent = "Correct!";
     correctWrong.style.color = "green";
 };
 
+//shows worng when answered incorrectly
 var wrong = function() {
     correctWrong.textContent = "Wrong!";
     correctWrong.style.color = "red";
 };
 
-
+//all eventListeners
 buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
 save.addEventListener("click", saveScore);

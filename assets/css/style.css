@@ -1,3 +1,4 @@
+/* Header and footer styling*/
 header, footer{
     width: 100%;
     background-color: aqua;
@@ -19,6 +20,7 @@ header, footer{
     text-decoration: none;
 }
 
+/* main content styling */
 .quiz-content {
     display: flex;
     justify-content: center;
@@ -45,6 +47,7 @@ header, footer{
     justify-content: center;
 }
 
+/* button styling*/
 .btn {
     background-color: blue;
     color: white;
@@ -61,6 +64,7 @@ header, footer{
     opacity: .75;
 }
 
+/* save score page styling*/
 #save-score {
     display: flex;
     flex-direction: column;
@@ -76,12 +80,14 @@ header, footer{
     font-size: x-large;
 }
 
+/* footer*/
 footer{
     justify-content: center;
     align-items: center;
     height: 75px;
 }
 
+/*media queries*/
 @media screen and (max-width: 575px){
     .quiz-content h1 {
         font-size: 25px;
