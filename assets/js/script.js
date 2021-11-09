@@ -112,6 +112,7 @@ var scoring = function () {
     }
     else if (event.target.textContent == "1. <!--This is a comment-->" || event.target.textContent == "3. 'This is a commment'" || event.target.textContent == "4. {This is a comment}") {
         score = score - 20;
+        timeLeft = timeLeft - 10;
     }
 };
 
