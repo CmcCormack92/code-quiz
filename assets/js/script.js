@@ -70,7 +70,6 @@ var createBtn = function () {
 //changes to next question
 var nextQuestion = function () {
     if (questNum <= questions.length - 1) {
-        ansNum++;
         scoring();
         document.getElementById("quiz-question").textContent = questions[questNum];
         document.getElementById("btn1").textContent = answers.ans1[questNum];
@@ -78,33 +77,41 @@ var nextQuestion = function () {
         document.getElementById("btn3").textContent = answers.ans3[questNum];
         document.getElementById("btn4").textContent = answers.ans4[questNum];
 
+        ansNum++;
         questNum++;
     } else {
+        scoring();
         endQuiz();
     }
 };
 
 //penalizing for wrong answers
 var scoring = function () {
-    if (ansNum === 2 && event.target.textContent !== "3. Object") {
+    if (ansNum === 1 && event.target.textContent !== "3. Object") {
         score = score - 20;
         timeLeft = timeLeft - 10;
+        console.log(ansNum)
     }
-    else if (ansNum === 3 && event.target.textContent !== "1. for") {
+    else if (ansNum === 2 && event.target.textContent !== "1. for") {
         score = score - 20;
         timeLeft = timeLeft - 10;
+        console.log(ansNum)
     }
-    else if (ansNum === 4 && event.target.textContent !== "4. parenthesis") {
+    else if (ansNum === 3 && event.target.textContent !== "4. parenthesis") {
         score = score - 20;
         timeLeft = timeLeft - 10;
+        console.log(ansNum)
     }
-    else if (ansNum === 5 && event.target.textContent !== "1. <script src= ' '>") {
+    else if (ansNum === 4 && event.target.textContent !== "1. <script src= ' '>") {
         score = score - 20;
         timeLeft = timeLeft - 10;
+        console.log(ansNum);
     }
-    else if (ansNum === 6 && event.target.textContent !== "2. //This is a comment") {
+    else if (event.target.textContent == "2. //This is a comment") {
+        
+    }
+    else if (event.target.textContent == "1. <!--This is a comment-->" || event.target.textContent == "3. 'This is a commment'" || event.target.textContent == "4. {This is a comment}") {
         score = score - 20;
-        timeLeft = timeLeft - 10;
     }
 };
 
@@ -144,7 +151,7 @@ var saveScore = function () {
     if (svInitials === "" || svInitials === null || svInitials.length < 3) {
         alert("Please enter a valid input to save!");
     } else {
-        
+
         highScoreArr.push(svInitials);
         highScoreArr.push(score);
         localStorage.setItem("highScoreArr", JSON.stringify(highScoreArr));
