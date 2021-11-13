@@ -5,6 +5,7 @@ var buttons = document.getElementById('hsButtons');
 var clearHs = document.getElementById("clearBtn");
 var returnBtn = document.getElementById("returnBtn");
 
+//checks local storage for saved highscores
 if (storage === null) {
 
     mainContent.textContent = "No Highscores"
@@ -13,6 +14,7 @@ if (storage === null) {
 
     mainContent.textContent = ""
 
+    //sets each highscore to a list item
     for (var i = 0; i < storage.length; i++) {
         var li = document.createElement('li')
         li.textContent = 'Name: ' + storage[i].name + ' - Score: ' + storage[i].score
@@ -20,12 +22,14 @@ if (storage === null) {
     }
 }
 
+//clears all high scores
 var clearAllScores = function() {
     localStorage.clear();
     ul.remove("li");
     mainContent.textContent = "No Highscores"
 }
 
+//returns to home page
 var returnHome = function() {
     window.location.href = "index.html";
 };

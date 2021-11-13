@@ -107,7 +107,7 @@ var nextQuestion = function () {
 }
 };
 
-//penalizing for wrong answers
+//penalizing for wrong answers and adding to score count for correct answers
 var scoring = function () {
 
     if (ansNum === 1 && event.target.textContent !== "3. Object") {
@@ -152,7 +152,7 @@ var scoring = function () {
     }
 };
 
-//Quiz complete
+//Quiz complete 
 var endQuiz = function () {
     if (timeLeft === 0) {
         document.getElementById("quiz-question").textContent = "You ran out of time!";
@@ -183,7 +183,7 @@ var endQuiz = function () {
     document.getElementById("reset-button").textContent = "Try Again";
 }
 
-
+//saves high score to local storage
 var saveScore = function () {
     //checks initials input for content
     var svInitials = document.getElementById("name").value;
