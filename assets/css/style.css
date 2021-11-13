@@ -44,7 +44,8 @@ header, footer{
 .answer-button {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* button styling*/
@@ -64,12 +65,6 @@ header, footer{
     opacity: .75;
 }
 
-/* save score page styling*/
-#save-score {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 #name-input input {
     width: 500px;
@@ -81,10 +76,46 @@ header, footer{
 }
 
 /* footer*/
-footer{
+footer, .hs-header{
     justify-content: center;
     align-items: center;
     height: 75px;
+}
+
+/* highscore page styling*/
+#mainHs {
+    display: flex;
+    justify-content: center;
+}
+
+#scores {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: x-large;
+    margin: 5px 0px 20px 0px ;
+    padding: 0;
+}
+
+#name-input input {
+    width: 500px;
+    height: 50px;
+    border: 1px solid blue;
+    border-radius: 50px;
+    text-align: center;
+    font-size: x-large;
+}
+
+#hsButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mainHs {
+    font-size: xx-large;
+    text-align: center;
+    margin: 15px;
 }
 
 /*media queries*/

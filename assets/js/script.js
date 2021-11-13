@@ -6,7 +6,6 @@ var rstBtn = document.querySelector("#reset");
 var nameInput = document.querySelector("#name-input");
 var showHighscore = document.querySelector("#highscore");
 var correctWrong = document.querySelector("#correct-wrong");
-var clearHs = document.querySelector("#clear");
 
 var score = 0;
 var timeLeft = 60;
@@ -235,15 +234,9 @@ var wrong = function() {
     correctWrong.style.color = "red";
 };
 
-var clearAllScores = function() {
-    localStorage.clear();
-    message.remove("#message");
-}
 
 //all eventListeners
 buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
 save.addEventListener("click", saveScore);
 rstBtn.addEventListener("click", tryAgain);
-// showHighscore.addEventListener("click", hsPage);
-clear.addEventListener("click", clearAllScores);
