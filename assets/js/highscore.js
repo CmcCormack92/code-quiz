@@ -8,7 +8,7 @@ var returnBtn = document.getElementById("returnBtn");
 //checks local storage for saved highscores
 if (storage === null) {
 
-    mainContent.textContent = "No Highscores"
+    mainContent.textContent = "No High Scores"
 
 } else {
 
@@ -26,7 +26,7 @@ if (storage === null) {
 var clearAllScores = function() {
     localStorage.clear();
     ul.remove("li");
-    mainContent.textContent = "No Highscores"
+    mainContent.textContent = "No High Scores"
 }
 
 //returns to home page
