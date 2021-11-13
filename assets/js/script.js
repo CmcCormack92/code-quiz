@@ -50,13 +50,13 @@ var startQuiz = function () {
 
 //Timer function
 var timeHandler = function () {
-    if (timeLeft > 0) {
+    if (timeLeft >= 0) {
         document.getElementById("time-value").textContent = timeLeft;
         timeLeft--;
     }
     if (timeLeft < 10) {
         document.getElementById("time-value").style.color = "red";
-    } if (timeLeft === 1) {
+    } if (timeLeft === 0) {
         endQuiz();
     }
 };
@@ -91,21 +91,21 @@ var nextQuestion = function () {
 
     if (element.matches("button")) {
 
-        if (questNum <= questions.length - 1) {
-            scoring();
-            document.getElementById("quiz-question").textContent = questions[questNum];
-            document.getElementById("btn1").textContent = answers.ans1[questNum];
-            document.getElementById("btn2").textContent = answers.ans2[questNum];
-            document.getElementById("btn3").textContent = answers.ans3[questNum];
-            document.getElementById("btn4").textContent = answers.ans4[questNum];
+    if (questNum <= questions.length - 1) {
+        scoring();
+        document.getElementById("quiz-question").textContent = questions[questNum];
+        document.getElementById("btn1").textContent = answers.ans1[questNum];
+        document.getElementById("btn2").textContent = answers.ans2[questNum];
+        document.getElementById("btn3").textContent = answers.ans3[questNum];
+        document.getElementById("btn4").textContent = answers.ans4[questNum];
 
-            ansNum++;
-            questNum++;
-        } else {
-            scoring();
-            endQuiz();
-        }
+        ansNum++;
+        questNum++;
+    } else {
+        scoring();
+        endQuiz();
     }
+}
 };
 
 //penalizing for wrong answers
@@ -115,7 +115,7 @@ var scoring = function () {
         timeLeft = timeLeft - 10;
         wrong();
     }
-    if (ansNum === 1 && event.target.textContent === "3. Object") {
+    if (ansNum === 1 && event.target.textContent === "3. Object"){
         score = score + 20;
         correct();
     }
@@ -143,7 +143,7 @@ var scoring = function () {
         score = score + 20;
         correct();
     }
-    else if (event.target.textContent === "1. <!--This is a comment-->" || event.target.textContent === "3. 'This is a commment'" || event.target.textContent === "4. {This is a comment}") {
+    else if (event.target.textContent === "1. <!--This is a comment-->" || event.target.textContent ==="3. 'This is a commment'" || event.target.textContent === "4. {This is a comment}") {
         timeLeft = timeLeft - 10;
         wrong();
     }
@@ -224,7 +224,7 @@ var tryAgain = function () {
 };
 
 // generates highscore page
-var hsPage = function () {
+var hsPage = function() {
     //removes view high score
     showHighscore.remove(".highscore");
 
@@ -249,18 +249,18 @@ var hsPage = function () {
 };
 
 //shows correct when answered correctly
-var correct = function () {
+var correct = function() {
     correctWrong.textContent = "Correct!";
     correctWrong.style.color = "green";
 };
 
 //shows worng when answered incorrectly
-var wrong = function () {
+var wrong = function() {
     correctWrong.textContent = "Wrong!";
     correctWrong.style.color = "red";
 };
 
-var clearAllScores = function () {
+var clearAllScores = function() {
     localStorage.clear();
     message.remove("#message");
 }
