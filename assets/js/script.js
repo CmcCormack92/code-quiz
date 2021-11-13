@@ -6,7 +6,6 @@ var rstBtn = document.querySelector("#reset");
 var nameInput = document.querySelector("#name-input");
 var showHighscore = document.querySelector("#highscore");
 var correctWrong = document.querySelector("#correct-wrong");
-var clearHs = document.querySelector("#clear");
 
 var score = 0;
 var timeLeft = 60;
@@ -155,7 +154,7 @@ var scoring = function () {
 
 //Quiz complete
 var endQuiz = function () {
-    if (timeLeft === 1) {
+    if (timeLeft === 0) {
         document.getElementById("quiz-question").textContent = "You ran out of time!";
     } else {
         document.getElementById("quiz-question").textContent = "Quiz Complete";
@@ -190,28 +189,27 @@ var saveScore = function () {
     var svInitials = document.getElementById("name").value;
     if (svInitials === "" || svInitials === null || svInitials.length > 3) {
         alert("Please enter a valid input to save!");
+        return
     } else {
 
-        //saves user score
-        highScoreArr.push(svInitials);
-        highScoreArr.push(score);
-        localStorage.setItem("highScoreArr", JSON.stringify(highScoreArr));
+        var storage = JSON.parse(localStorage.getItem("user"))
+        if(storage === null) {
+            storage=[]
+        }
+        var currentUser = {
+            name: svInitials,
+            score: score
+        }
+        storage.push(currentUser)
+        localStorage.setItem("user", JSON.stringify(storage))
+        highScoreArr.push(storage);
+        
         //calls function to bring user back to start page
         tryAgain();
         //confirms highscore save
         alert("Your high score has been saved");
     }
-};
-
-//retrieves highscore 
-var getHighscore = function () {
-    var savedScores = localStorage.getItem("highScoreArr");
-    savedScores = JSON.parse(savedScores);
-    highScoreArr = savedScores;
-
-    if (!savedScores) {
-        return false;
-    }
+    window.location.href='highscore.html'
 };
 
 // resets to home page
@@ -223,30 +221,6 @@ var tryAgain = function () {
     correctWrong.textContent = "";
 };
 
-// generates highscore page
-var hsPage = function() {
-    //removes view high score
-    showHighscore.remove(".highscore");
-
-    getHighscore();
-    buttonEl.remove("#btn");
-    document.getElementById("quiz-question").textContent = "High Scores";
-    message.textContent = highScoreArr;
-
-    //return button to home page
-    var reset = document.createElement("button");
-    reset.className = "btn";
-    reset.id = "reset-button";
-    rstBtn.appendChild(reset);
-    document.getElementById("reset-button").textContent = "Return";
-
-    //clear high scores button
-    var clear = document.createElement("button");
-    clear.className = "btn";
-    clear.id = "clear-button";
-    clearHs.appendChild(clear);
-    document.getElementById("clear-button").textContent = "Clear High Scores";
-};
 
 //shows correct when answered correctly
 var correct = function() {
@@ -260,15 +234,9 @@ var wrong = function() {
     correctWrong.style.color = "red";
 };
 
-var clearAllScores = function() {
-    localStorage.clear();
-    message.remove("#message");
-}
 
 //all eventListeners
 buttonEl.addEventListener("click", startQuiz);
 ansBtn.addEventListener("click", nextQuestion);
 save.addEventListener("click", saveScore);
 rstBtn.addEventListener("click", tryAgain);
-showHighscore.addEventListener("click", hsPage);
-clear.addEventListener("click", clearAllScores);
