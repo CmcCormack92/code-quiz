@@ -45,6 +45,7 @@ header, footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
 }
 
 /* button styling*/
