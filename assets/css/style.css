@@ -39,6 +39,7 @@ header, footer{
 .quiz-content p {
     text-align: center;
     font-size: x-large;
+    font-weight: bold;
 }
 
 .answer-button {
